@@ -1,18 +1,29 @@
-import { useEffect, useState, useRef } from 'react';
-import { Navbar } from '@/components/layout/Navbar';
-import { Footer } from '@/components/layout/Footer';
-import { HeroSection } from '@/components/sections/HeroSection';
-import { AboutSection } from '@/components/sections/AboutSection';
-import { ProjectsSection } from '@/components/sections/ProjectsSection';
-import { ContactSection } from '@/components/sections/ContactSection';
-import { ThemeProvider, useTheme } from '@/providers/theme-provider';
-import Squares from '@/components/ui/Squares';
-import { navItems } from '@/data/navigation';
-import ReactGA from 'react-ga4';
+import { useEffect, useState, useRef } from "react";
+import { Navbar } from "@/components/layout/Navbar";
+import { Footer } from "@/components/layout/Footer";
+import { HeroSection } from "@/components/sections/HeroSection";
+import { AboutSection } from "@/components/sections/AboutSection";
+import { AcademicsSection } from "@/components/sections/AcademicsSection";
+import { ProjectsSection } from "@/components/sections/ProjectsSection";
+import { CertificationsSection } from "@/components/sections/CertificationsSection";
+import { ResearchSection } from "@/components/sections/ResearchSection";
+import { ActivitiesSection }  from "@/components/sections/ActivitiesSection"
+import { InternshipsSection } from "@/components/sections/InternshipsSection";
+import { LearningSection } from "@/components/sections/LearningSection";
+import { CareerGoalsSection } from "@/components/sections/CareerGoalsSection";
+import { ResumeSection } from "@/components/sections/ResumeSection";
+import { ContactSection } from "@/components/sections/ContactSection";
+import { FloatingActionButton } from "@/components/ui/floating-action-button";
+import { ScrollToTop } from "@/components/ui/scroll-to-top";
+import { ScrollProgress } from "@/components/ui/scroll-progress";
+import { ThemeProvider, useTheme } from "@/providers/theme-provider";
+import Squares from "@/components/ui/Squares";
+import { navItems } from "@/data/navigation";
+import ReactGA from "react-ga4";
 
 function AppContent() {
   const { theme, setTheme } = useTheme();
-  const [activeSection, setActiveSection] = useState('home');
+  const [activeSection, setActiveSection] = useState("home");
   const mainRef = useRef<HTMLElement>(null);
 
   useEffect(() => {
@@ -25,24 +36,39 @@ function AppContent() {
     }
 
     // Use IntersectionObserver to detect current active section
-    const sections = ['home', 'about', 'projects', 'blog', 'contact'];
+    const sections = [
+      "home",
+      "about",
+      "academics",
+      "certifications",
+      "projects",
+      "research",
+      "internships",
+      "activities",
+      "learning",
+      "career-goals",
+      "resume",
+      "contact",
+    ];
     const observer = new IntersectionObserver(
       (entries) => {
         entries.forEach((entry) => {
           if (entry.isIntersecting) {
             setActiveSection(entry.target.id);
             // Log page view event
-            ReactGA.send({ 
-              hitType: "pageview", 
+            ReactGA.send({
+              hitType: "pageview",
               page: `/${entry.target.id}`,
-              title: entry.target.id.charAt(0).toUpperCase() + entry.target.id.slice(1)
+              title:
+                entry.target.id.charAt(0).toUpperCase() +
+                entry.target.id.slice(1),
             });
           }
         });
       },
-      { 
+      {
         threshold: 0.3,
-        rootMargin: '-20% 0px -20% 0px'
+        rootMargin: "-20% 0px -20% 0px",
       }
     );
 
@@ -64,48 +90,65 @@ function AppContent() {
   }, []);
 
   const toggleTheme = () => {
-    setTheme(theme === 'light' ? 'dark' : 'light');
+    setTheme(theme === "light" ? "dark" : "light");
     // Log theme toggle event
     ReactGA.event({
-      category: 'Theme',
-      action: 'Toggle',
-      label: theme === 'light' ? 'Dark' : 'Light'
+      category: "Theme",
+      action: "Toggle",
+      label: theme === "light" ? "Dark" : "Light",
     });
   };
 
   return (
     <div className="min-h-screen bg-background/50 text-foreground transition-colors duration-300 relative">
-      <Squares 
-        speed={0.3} 
+      {/* Scroll Progress Indicator */}
+      <ScrollProgress />
+
+      <Squares
+        speed={0.3}
         squareSize={40}
-        direction='diagonal'
-        borderColor={theme === 'dark' ? '#fff' : '#000'}
-        hoverFillColor={theme === 'dark' ? '#222' : '#eee'}
+        direction="diagonal"
+        borderColor={theme === "dark" ? "#fff" : "#000"}
+        hoverFillColor={theme === "dark" ? "#222" : "#eee"}
       />
-      
-      <Navbar 
-        theme={theme} 
-        toggleTheme={toggleTheme} 
-        activeSection={activeSection} 
-        navItems={navItems} 
+
+      <Navbar
+        theme={theme}
+        toggleTheme={toggleTheme}
+        activeSection={activeSection}
+        navItems={navItems}
         setActiveSection={setActiveSection}
       />
 
-      <main ref={mainRef} className="container mx-auto px-4 pt-8 md:pt-24 pb-8 md:pb-4 space-y-16 md:space-y-24 relative z-10">
+      <main
+        ref={mainRef}
+        className="container mx-auto px-4 pt-4 pb-8 space-y-16 md:space-y-24 relative z-10"
+      >
         <div className="relative min-h-[80vh] w-full">
           <HeroSection />
         </div>
         <AboutSection />
+        <AcademicsSection />
+        <CertificationsSection />
         <ProjectsSection />
-        {/* <div id="blog">
-          <BlogSection />
-        </div> */}
+        <ResearchSection />
+        <InternshipsSection />
+        <ActivitiesSection />
+        <LearningSection />
+        <CareerGoalsSection />
+        <ResumeSection />
         <ContactSection />
       </main>
 
       <div className="relative z-10">
         <Footer />
       </div>
+
+      {/* Floating Action Button */}
+      <FloatingActionButton />
+
+      {/* Scroll to Top Button */}
+      <ScrollToTop />
     </div>
   );
 }

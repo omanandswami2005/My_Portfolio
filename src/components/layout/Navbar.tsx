@@ -1,11 +1,17 @@
-import { Moon, Sun } from 'lucide-react';
-import { Button } from '@/components/ui/button';
-import { cn } from '@/lib/utils';
-import { useEffect, useState } from 'react';
-import { OptimizedImage } from '@/components/ui/optimized-image';
+import { Moon, Sun, Menu, X, ChevronDown } from "lucide-react";
+import { Button } from "@/components/ui/button";
+import { cn } from "@/lib/utils";
+import { useEffect, useState } from "react";
+import { OptimizedImage } from "@/components/ui/optimized-image";
+import {
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuItem,
+  DropdownMenuTrigger,
+} from "@/components/ui/dropdown-menu";
 
 interface NavbarProps {
-  theme: 'light' | 'dark';
+  theme: "light" | "dark";
   toggleTheme: () => void;
   activeSection: string;
   navItems: Array<{
@@ -16,9 +22,15 @@ interface NavbarProps {
   setActiveSection: React.Dispatch<React.SetStateAction<string>>;
 }
 
-export function Navbar({ theme, toggleTheme, activeSection, navItems, setActiveSection }: NavbarProps) {
+export function Navbar({
+  theme,
+  toggleTheme,
+  activeSection,
+  navItems,
+  setActiveSection,
+}: NavbarProps) {
   const [isScrolling, setIsScrolling] = useState(false);
-  const [scrollProgress, setScrollProgress] = useState(0);
+  const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
 
   useEffect(() => {
     let lastScrollY = window.scrollY;
@@ -26,163 +38,326 @@ export function Navbar({ theme, toggleTheme, activeSection, navItems, setActiveS
 
     const handleScroll = () => {
       lastScrollY = window.scrollY;
-      
+
       if (!ticking) {
         window.requestAnimationFrame(() => {
           setIsScrolling(lastScrollY > 0);
-          
-          const maxScroll = 1000;
-          const progress = Math.min(lastScrollY / maxScroll, 1);
-          setScrollProgress(progress);
-          
           ticking = false;
         });
         ticking = true;
       }
     };
 
-    window.addEventListener('scroll', handleScroll, { passive: true });
-    return () => window.removeEventListener('scroll', handleScroll);
+    window.addEventListener("scroll", handleScroll, { passive: true });
+    return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
-  const navWidth = 80 - (scrollProgress * 30);
+  // Group navigation items for better organization
+  const primaryNavItems = navItems.filter((item) =>
+    ["home", "about", "contact"].includes(item.id)
+  );
+
+  const academicItems = navItems.filter((item) =>
+    ["academics", "certifications", "research"].includes(item.id)
+  );
+
+  const experienceItems = navItems.filter((item) =>
+    ["projects", "internships", "activities"].includes(item.id)
+  );
+
+  const otherItems = navItems.filter((item) =>
+    ["learning", "career-goals", "resume"].includes(item.id)
+  );
+
+  const handleNavClick = (id: string) => {
+    setActiveSection(id);
+    setIsMobileMenuOpen(false);
+    document.getElementById(id)?.scrollIntoView({
+      behavior: "smooth",
+      block: "start",
+    });
+  };
 
   return (
     <>
-      {/* Desktop navigation */}
-      <nav 
+      {/* Desktop Navigation */}
+      <nav
         className={cn(
-          "fixed top-4 left-1/2 -translate-x-1/2 z-40 hidden md:block rounded-full",
-          isScrolling 
-            ? theme === 'light'
-              ? "bg-white/80 backdrop-blur-xl border border-zinc-200/50 shadow-lg"
-              : "bg-zinc-900/40 backdrop-blur-xl border border-zinc-800/30 shadow-lg"
+          "fixed top-0 left-0 right-0 z-50 transition-all duration-300",
+          isScrolling
+            ? theme === "light"
+              ? "bg-white/95 backdrop-blur-xl border-b border-zinc-200/50 shadow-sm"
+              : "bg-zinc-900/95 backdrop-blur-xl border-b border-zinc-800/50 shadow-sm"
             : "bg-transparent"
         )}
-        style={{
-          width: `${navWidth}%`,
-          transform: `translate(-50%, ${isScrolling ? '0' : '0'})`,
-          boxShadow: isScrolling 
-            ? theme === 'light'
-              ? '0 4px 30px rgba(0, 0, 0, 0.08)'
-              : '0 4px 30px rgba(0, 0, 0, 0.15)'
-            : 'none',
-        }}
       >
-        <div className="container mx-auto px-6 h-16 flex items-center justify-between">
+        <div className="container mx-auto px-4 h-16 flex items-center justify-between">
+          {/* Logo */}
           <div className="flex items-center gap-3">
-            <div className="relative h-9 w-9">
+            <div className="relative h-10 w-10">
               <OptimizedImage
-                src="./avatar.png"
+                src="./myavatar.jpeg"
                 alt="logo"
-                width={36}
-                height={36}
+                width={40}
+                height={40}
                 priority
-                className="
-                  h-9 w-9 rounded-lg shadow-lg
-                  transition-all duration-300
-                  hover:scale-110 hover:shadow-[0_0_16px_4px_rgba(255,255,255,0.5)]
-                  ring-2 ring-gray-300/60
-                  bg-gradient-to-br from-white/10 to-yellow-100/10
-                "
+                className="h-10 w-10 rounded-lg shadow-lg transition-all duration-300 hover:scale-110 ring-2 ring-gray-300/60"
               />
             </div>
+            <span className="font-bold text-lg hidden sm:block">Omanand's Portfolio</span>
           </div>
-          <div className="flex items-center space-x-8">
-            {navItems.map(({ id, label }) => (
-              <a
+
+          {/* Desktop Navigation */}
+          <div className="hidden lg:flex items-center space-x-1">
+            {/* Primary Navigation */}
+            {primaryNavItems.map(({ id, label }) => (
+              <Button
                 key={id}
-                href={`#${id}`}
+                variant="ghost"
+                size="sm"
                 className={cn(
-                  'text-sm font-medium transition-all duration-300 relative group',
-                  activeSection === id 
-                    ? 'text-zinc-900 dark:text-zinc-100 dark:drop-shadow-[0_0_8px_#e5e7eb]'
-                    : 'text-zinc-600 dark:text-zinc-400 hover:text-zinc-900 dark:hover:text-zinc-100'
+                  "text-sm font-medium transition-all duration-300 relative",
+                  activeSection === id
+                    ? "text-primary bg-primary/10"
+                    : "text-muted-foreground hover:text-foreground hover:bg-muted/50"
                 )}
-                onClick={(e) => {
-                  e.preventDefault();
-                  document.getElementById(id)?.scrollIntoView({ 
-                    behavior: 'smooth',
-                    block: 'start'
-                  });
-                }}
+                onClick={() => handleNavClick(id)}
               >
                 {label}
-                <span 
+              </Button>
+            ))}
+
+            {/* Academic Dropdown */}
+            <DropdownMenu>
+              <DropdownMenuTrigger asChild>
+                <Button
+                  variant="ghost"
+                  size="sm"
                   className={cn(
-                    "absolute -bottom-1 left-1/2 -translate-x-1/2 h-0.5 bg-zinc-900 dark:bg-zinc-100 transition-all duration-300",
-                    activeSection === id ? "w-4" : "w-0 group-hover:w-4"
+                    "text-sm font-medium transition-all duration-300 flex items-center gap-1",
+                    academicItems.some((item) => item.id === activeSection)
+                      ? "text-primary bg-primary/10"
+                      : "text-muted-foreground hover:text-foreground hover:bg-muted/50"
                   )}
-                />
-              </a>
+                >
+                  Education
+                  <ChevronDown className="w-3 h-3" />
+                </Button>
+              </DropdownMenuTrigger>
+              <DropdownMenuContent align="center" className="w-48">
+                {academicItems.map(({ id, label, icon: Icon }) => (
+                  <DropdownMenuItem
+                    key={id}
+                    onClick={() => handleNavClick(id)}
+                    className={cn(
+                      "flex items-center gap-2 cursor-pointer",
+                      activeSection === id && "bg-primary/10 text-primary"
+                    )}
+                  >
+                    <Icon className="w-4 h-4" />
+                    {label}
+                  </DropdownMenuItem>
+                ))}
+              </DropdownMenuContent>
+            </DropdownMenu>
+
+            {/* Experience Dropdown */}
+            <DropdownMenu>
+              <DropdownMenuTrigger asChild>
+                <Button
+                  variant="ghost"
+                  size="sm"
+                  className={cn(
+                    "text-sm font-medium transition-all duration-300 flex items-center gap-1",
+                    experienceItems.some((item) => item.id === activeSection)
+                      ? "text-primary bg-primary/10"
+                      : "text-muted-foreground hover:text-foreground hover:bg-muted/50"
+                  )}
+                >
+                 Omanand's Portfolio
+                  <ChevronDown className="w-3 h-3" />
+                </Button>
+              </DropdownMenuTrigger>
+              <DropdownMenuContent align="center" className="w-48">
+                {experienceItems.map(({ id, label, icon: Icon }) => (
+                  <DropdownMenuItem
+                    key={id}
+                    onClick={() => handleNavClick(id)}
+                    className={cn(
+                      "flex items-center gap-2 cursor-pointer",
+                      activeSection === id && "bg-primary/10 text-primary"
+                    )}
+                  >
+                    <Icon className="w-4 h-4" />
+                    {label}
+                  </DropdownMenuItem>
+                ))}
+              </DropdownMenuContent>
+            </DropdownMenu>
+
+            {/* Other Items */}
+            {otherItems.map(({ id, label }) => (
+              <Button
+                key={id}
+                variant="ghost"
+                size="sm"
+                className={cn(
+                  "text-sm font-medium transition-all duration-300",
+                  activeSection === id
+                    ? "text-primary bg-primary/10"
+                    : "text-muted-foreground hover:text-foreground hover:bg-muted/50"
+                )}
+                onClick={() => handleNavClick(id)}
+              >
+                {label}
+              </Button>
             ))}
           </div>
-          <Button 
-            variant="ghost" 
-            size="icon" 
-            onClick={toggleTheme}
-            className="rounded-full hover:bg-zinc-100/80 dark:hover:bg-zinc-800/50 transition-all duration-300 hover:scale-110"
-          >
-            {theme === 'light' ? <Moon className="h-5 w-5" /> : <Sun className="h-5 w-5" />}
-          </Button>
-        </div>
-      </nav>
 
-      {/* Mobile navigation */}
-      <nav className={cn(
-        "md:hidden fixed bottom-3 left-1/2 -translate-x-1/2 z-40 w-[85%]",
-        theme === 'light'
-          ? "bg-white/80 backdrop-blur-xl border border-zinc-200/50 rounded-full shadow-lg"
-          : "bg-zinc-900/40 backdrop-blur-xl border border-zinc-800/30 rounded-full shadow-lg",
-        "transition-all duration-700 ease-out"
-      )}>
-        <div className="container mx-auto px-4 h-12">
-          <div className="flex items-center justify-around h-full">
-            {navItems.map(({ id, label, icon: Icon }) => (
-              <a
-                key={id}
-                href={`#${id}`}
-                className={cn(
-                  'flex flex-col items-center justify-center gap-0.5 text-[10px] transition-all duration-300',
-                  activeSection === id 
-                    ? 'text-zinc-900 dark:text-zinc-100 dark:drop-shadow-[0_0_8px_#e5e7eb]'
-                    : 'text-zinc-600 dark:text-zinc-400 hover:text-zinc-900 dark:hover:text-zinc-100'
-                )}
-                onClick={(e) => {
-                  e.preventDefault();
-                  setActiveSection(id);
-                  document.getElementById(id)?.scrollIntoView({ 
-                    behavior: 'smooth',
-                    block: 'start'
-                  });
-                }}
-              >
-                <Icon className={cn(
-                  "h-4 w-4 transition-transform duration-300",
-                  activeSection === id && "scale-110"
-                )} />
-                <span className="font-medium">{label}</span>
-              </a>
-            ))}
-            <div 
-              className="flex flex-col items-center justify-center gap-0.5 text-[10px] transition-all duration-300 cursor-pointer"
+          {/* Right side actions */}
+          <div className="flex items-center gap-2">
+            <Button
+              variant="ghost"
+              size="icon"
               onClick={toggleTheme}
+              className="rounded-full hover:bg-muted/50 transition-all duration-300"
             >
-              {theme === 'light' ? (
-                <>
-                  <Moon className="h-4 w-4 text-zinc-600 dark:text-zinc-400" />
-                  <span className="font-medium text-zinc-600 dark:text-zinc-400">Dark</span>
-                </>
+              {theme === "light" ? (
+                <Moon className="h-4 w-4" />
               ) : (
-                <>
-                  <Sun className="h-4 w-4 text-zinc-600 dark:text-zinc-400" />
-                  <span className="font-medium text-zinc-600 dark:text-zinc-400">Light</span>
-                </>
+                <Sun className="h-4 w-4" />
               )}
+            </Button>
+
+            {/* Mobile menu button */}
+            <Button
+              variant="ghost"
+              size="icon"
+              className="lg:hidden"
+              onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
+            >
+              {isMobileMenuOpen ? (
+                <X className="h-5 w-5" />
+              ) : (
+                <Menu className="h-5 w-5" />
+              )}
+            </Button>
+          </div>
+        </div>
+
+        {/* Mobile Navigation Menu */}
+        {isMobileMenuOpen && (
+          <div
+            className={cn(
+              "lg:hidden border-t transition-all duration-300",
+              theme === "light"
+                ? "bg-white/95 backdrop-blur-xl border-zinc-200/50"
+                : "bg-zinc-900/95 backdrop-blur-xl border-zinc-800/50"
+            )}
+          >
+            <div className="container mx-auto px-4 py-4 space-y-2 max-h-[70vh] overflow-y-auto">
+              {/* Primary Items */}
+              <div className="space-y-1">
+                <h3 className="text-xs font-semibold text-muted-foreground uppercase tracking-wider px-2 py-1">
+                  Main
+                </h3>
+                {primaryNavItems.map(({ id, label, icon: Icon }) => (
+                  <Button
+                    key={id}
+                    variant="ghost"
+                    size="sm"
+                    className={cn(
+                      "w-full justify-start gap-3",
+                      activeSection === id
+                        ? "text-primary bg-primary/10"
+                        : "text-muted-foreground hover:text-foreground hover:bg-muted/50"
+                    )}
+                    onClick={() => handleNavClick(id)}
+                  >
+                    <Icon className="w-4 h-4" />
+                    {label}
+                  </Button>
+                ))}
+              </div>
+
+              {/* Education Items */}
+              <div className="space-y-1">
+                <h3 className="text-xs font-semibold text-muted-foreground uppercase tracking-wider px-2 py-1">
+                  Education
+                </h3>
+                {academicItems.map(({ id, label, icon: Icon }) => (
+                  <Button
+                    key={id}
+                    variant="ghost"
+                    size="sm"
+                    className={cn(
+                      "w-full justify-start gap-3",
+                      activeSection === id
+                        ? "text-primary bg-primary/10"
+                        : "text-muted-foreground hover:text-foreground hover:bg-muted/50"
+                    )}
+                    onClick={() => handleNavClick(id)}
+                  >
+                    <Icon className="w-4 h-4" />
+                    {label}
+                  </Button>
+                ))}
+              </div>
+
+              {/* Portfolio Items */}
+              <div className="space-y-1">
+                <h3 className="text-xs font-semibold text-muted-foreground uppercase tracking-wider px-2 py-1">
+                  Portfolio
+                </h3>
+                {experienceItems.map(({ id, label, icon: Icon }) => (
+                  <Button
+                    key={id}
+                    variant="ghost"
+                    size="sm"
+                    className={cn(
+                      "w-full justify-start gap-3",
+                      activeSection === id
+                        ? "text-primary bg-primary/10"
+                        : "text-muted-foreground hover:text-foreground hover:bg-muted/50"
+                    )}
+                    onClick={() => handleNavClick(id)}
+                  >
+                    <Icon className="w-4 h-4" />
+                    {label}
+                  </Button>
+                ))}
+              </div>
+
+              {/* Professional Items */}
+              <div className="space-y-1">
+                <h3 className="text-xs font-semibold text-muted-foreground uppercase tracking-wider px-2 py-1">
+                  Professional
+                </h3>
+                {otherItems.map(({ id, label, icon: Icon }) => (
+                  <Button
+                    key={id}
+                    variant="ghost"
+                    size="sm"
+                    className={cn(
+                      "w-full justify-start gap-3",
+                      activeSection === id
+                        ? "text-primary bg-primary/10"
+                        : "text-muted-foreground hover:text-foreground hover:bg-muted/50"
+                    )}
+                    onClick={() => handleNavClick(id)}
+                  >
+                    <Icon className="w-4 h-4" />
+                    {label}
+                  </Button>
+                ))}
+              </div>
             </div>
           </div>
-        </div>
+        )}
       </nav>
+
+      {/* Spacer for fixed navbar */}
+      <div className="h-16" />
     </>
   );
-} 
+}

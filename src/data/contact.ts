@@ -1,14 +1,17 @@
 export const contactContent = {
-  title: 'Contact',
-  description: 'Whether you want to discuss project collaboration, technical consulting, or simply exchange technical topics, feel free to contact me anytime.',
+  title: "Get In Touch",
+  description:
+    "I'm always open to discussing new opportunities, collaborations, or just having a chat about technology and development. Feel free to reach out!",
   cards: {
     cooperation: {
-      title: "Let's Start Collaborating",
-      description: 'I would be happy to hear suggestions for new projects and opportunities. Whether it\'s full-time opportunities, freelance projects, or technical consulting, feel free to contact me.'
+      title: "Let's Work Together",
+      description:
+        "I'm actively looking for internship opportunities, freelance projects, and collaborative ventures. Whether it's web development, MERN stack projects, or innovative tech solutions, I'd love to contribute to your team.",
     },
     social: {
-      title: 'Social Media',
-      description: 'Follow my social media accounts for more technical sharing and project updates.'
-    }
-  }
+      title: "Connect With Me",
+      description:
+        "Follow me on social media for updates on my projects, learning journey, and tech insights.",
+    },
+  },
 };

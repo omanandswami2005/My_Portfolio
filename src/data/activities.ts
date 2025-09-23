@@ -29,18 +29,18 @@ export const coCurricularActivities: CoCurricularActivity[] = [
   },
   {
     id: "2",
-    activity: "Technical Paper Presentation",
+    activity: "Technical Poster Presentation",
     level: "State",
     role: "Presenter",
-    organizer: "IEEE Student Chapter",
-    award: "Best Paper Award",
+    organizer: "Tech Symposium",
+    award: "Second Prize",
   },
   {
     id: "3",
-    activity: "Coding Contest",
+    activity: "Project Expo Contest",
     level: "University",
     role: "Winner",
-    organizer: "Computer Science Department",
+    organizer: "Computer Science Department, PLGPL",
     award: "First Prize",
   },
 ];
@@ -48,14 +48,6 @@ export const coCurricularActivities: CoCurricularActivity[] = [
 export const extraCurricularActivities: ExtraCurricularActivity[] = [
   {
     id: "1",
-    category: "Sports",
-    activity: "Basketball Team Captain",
-    role: "Captain",
-    description: "Led university basketball team to inter-college championship",
-    duration: "2023-2024",
-  },
-  {
-    id: "2",
     category: "Cultural",
     activity: "Drama Club",
     role: "Member",
@@ -64,7 +56,7 @@ export const extraCurricularActivities: ExtraCurricularActivity[] = [
     duration: "2022-2024",
   },
   {
-    id: "3",
+    id: "2",
     category: "NSS",
     activity: "Community Service",
     role: "Volunteer",
@@ -73,7 +65,7 @@ export const extraCurricularActivities: ExtraCurricularActivity[] = [
     duration: "2023-2024",
   },
   {
-    id: "4",
+    id: "3",
     category: "Leadership",
     activity: "Class Representative",
     role: "Class Rep",

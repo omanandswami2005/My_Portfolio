@@ -129,12 +129,12 @@ function AppContent() {
         </div>
         <AboutSection />
         <AcademicsSection />
-        <CertificationsSection />
+        {/* <CertificationsSection /> */}
         <ProjectsSection />
-        <ResearchSection />
+        {/* <ResearchSection /> */}
         <InternshipsSection />
         <ActivitiesSection />
-        <LearningSection />
+        {/* <LearningSection /> */}
         <CareerGoalsSection />
         <ResumeSection />
         <ContactSection />

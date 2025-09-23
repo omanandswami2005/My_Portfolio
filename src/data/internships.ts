@@ -12,34 +12,14 @@ export interface Internship {
 export const internships: Internship[] = [
   {
     id: "1",
-    organization: "ABC Pvt. Ltd.",
+    organization: "Unified Mentor Private Limited",
     duration: "1 month",
-    role: "Data Analyst Intern",
-    tools: ["Excel", "SQL", "Python", "Tableau"],
-    learningOutcome: "Data Cleaning, Analysis, and Visualization techniques",
+    role: "MERN Stack Developer Intern",
+    tools: ["MongoDB", "Express.js", "React", "Node.js"],
+    learningOutcome: "Developed a full-stack web application and gained hands-on experience with the MERN stack",
     certificate: "internship-certificate.pdf",
     description:
-      "Worked on customer data analysis and created interactive dashboards for business insights",
+      "Worked on building a web application that connects students with teachers, allowing users to sign up, create profiles, and schedule mentoring sessions & appointments.",
   },
-  {
-    id: "2",
-    organization: "XYZ Tech Solutions",
-    duration: "2 months",
-    role: "Software Development Intern",
-    tools: ["React", "Node.js", "MongoDB", "Git"],
-    learningOutcome: "Full-stack web development and agile methodologies",
-    certificate: "internship-certificate-2.pdf",
-    description:
-      "Developed and maintained web applications using modern JavaScript frameworks",
-  },
-  {
-    id: "3",
-    organization: "Tech Startup Inc.",
-    duration: "3 months",
-    role: "Machine Learning Intern",
-    tools: ["Python", "TensorFlow", "Pandas", "Jupyter"],
-    learningOutcome: "Applied ML algorithms to real-world problems",
-    description:
-      "Built predictive models for customer behavior analysis and recommendation systems",
-  },
+  
 ];

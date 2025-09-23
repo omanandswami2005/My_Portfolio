@@ -27,6 +27,13 @@ export const careerGoals: CareerGoal[] = [
     timeline: "12 months",
   },
   {
+    type: "short-term",
+    title: "JAVA and Spring Boot Developer",
+    description:
+      "Specialize in Java and Spring Boot development to create robust and efficient backend systems for web applications.",
+    timeline: "6-12 years",
+  },
+  {
     type: "long-term",
     title: "Technical Lead/Architect",
     description:
@@ -40,6 +47,13 @@ export const careerGoals: CareerGoal[] = [
       "Actively contribute to major open-source projects and potentially maintain my own widely-used libraries or frameworks.",
     timeline: "2-5 years",
   },
+  {
+    type: "long-term",
+    title: "AI and LLM Development",
+    description:
+      "Specialize in artificial intelligence and large language models to develop innovative solutions that leverage AI for real-world applications.",
+    timeline: "3-5 years",
+  }
 ];
 
 export const areasOfInterest: AreaOfInterest[] = [

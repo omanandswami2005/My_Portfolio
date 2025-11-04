@@ -23,7 +23,7 @@ export const coCurricularActivities: CoCurricularActivity[] = [
     activity: "Hackathon",
     level: "National",
     role: "Finalist",
-    organizer: "AICTE",
+  organizer: "AICTE & AISSMS",
     award: "Top 10 Finalist",
     certificate: "certificate.pdf",
   },

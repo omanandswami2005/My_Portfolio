@@ -29,7 +29,7 @@ export function InternshipsSection() {
                     <Building className="w-5 h-5 text-primary" />
                     <Badge variant="secondary">{internship.duration}</Badge>
                   </div>
-                  {internship.certificate && (
+                  {/* {internship.certificate && (
                     <Button
                       variant="ghost"
                       size="sm"
@@ -40,7 +40,7 @@ export function InternshipsSection() {
                     >
                       <ExternalLink className="w-4 h-4" />
                     </Button>
-                  )}
+                  )} */}
                 </div>
                 <CardTitle className="text-xl">
                   {internship.organization}

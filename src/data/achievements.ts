@@ -1,7 +1,7 @@
 export interface Achievement {
   id: string;
   title: string;
-  type: "scholarship" | "technical" | "university" | "competition";
+  type: "scholarship" | "technical" | "university" | "competition" | "industry";
   description: string;
   date: string;
   organization?: string;
@@ -10,13 +10,22 @@ export interface Achievement {
 
 export const achievements: Achievement[] = [
   {
-    id: "1",
-    title: "Runner-up in Codingal Coding Competition",
-    type: "competition",
+    id: "4",
+    title: "Winner - HactoberFest Hackthon 2025",
+    type: "industry",
     description:
-      "Secured second position in Codingal Coding Competition demonstrating strong programming skills",
-    date: "2021",
-    organization: "Codingal",
+      "Won first place in HactoberFest Hackthon 2025 for innovative project development",
+    date: "2025",
+    organization: "Digital Ocean and Coditas, Pune",
+  },
+  {
+    id: "3",
+    title: "Best Performer - VCRP Latur College",
+    type: "university",
+    description:
+      "Recognized as Best Performer at VCRP Latur College for outstanding academic and project performance",
+    date: "2023",
+    organization: "VCRP Latur College",
   },
   {
     id: "2",
@@ -28,12 +37,12 @@ export const achievements: Achievement[] = [
     organization: "ISTE Chapter, PL College, Latur",
   },
   {
-    id: "3",
-    title: "Best Performer - VCRP Latur College",
-    type: "university",
+    id: "1",
+    title: "Runner-up in Codingal Coding Competition",
+    type: "competition",
     description:
-      "Recognized as Best Performer at VCRP Latur College for outstanding academic and project performance",
-    date: "2023",
-    organization: "VCRP Latur College",
+      "Secured second position in Codingal Coding Competition demonstrating strong programming skills",
+    date: "2021",
+    organization: "Codingal",
   },
 ];

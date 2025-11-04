@@ -1,23 +1,19 @@
-import { ExternalLink } from 'lucide-react';
-import SpotlightCard from '@/components/ui/SpotlightCard';
-import { projects } from '@/data/projects';
-import { Button } from '@/components/ui/button';
-import { logEvent, EventCategories, EventActions } from '@/lib/analytics';
-import { OptimizedImage } from '@/components/ui/optimized-image';
+import { ExternalLink } from "lucide-react";
+import SpotlightCard from "@/components/ui/SpotlightCard";
+import { projects } from "@/data/projects";
+import { Button } from "@/components/ui/button";
+import { logEvent, EventCategories, EventActions } from "@/lib/analytics";
+import { OptimizedImage } from "@/components/ui/optimized-image";
+import { CollapsibleSection } from "@/components/ui/collapsible-section";
 
 export function ProjectsSection() {
   const handleProjectClick = (projectName: string, projectLink: string) => {
-    logEvent(
-      EventCategories.PROJECTS,
-      EventActions.CLICK,
-      projectName
-    );
+    logEvent(EventCategories.PROJECTS, EventActions.CLICK, projectName);
     window.location.href = projectLink;
   };
 
   return (
-    <section id="projects" className="scroll-mt-16">
-      <h2 className="text-3xl font-bold mb-8">Personal Projects</h2>
+    <CollapsibleSection id="projects" heading="Personal Projects">
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
         {projects.map((project) => (
           <Button
@@ -43,7 +39,9 @@ export function ProjectsSection() {
                   {project.title}
                   <ExternalLink className="h-4 w-4 opacity-0 group-hover:opacity-100 transition-opacity" />
                 </h3>
-                <p className="text-muted-foreground mb-4 text-sm md:text-base text-left">{project.description}</p>
+                <p className="text-muted-foreground mb-4 text-sm md:text-base text-left">
+                  {project.description}
+                </p>
                 <div className="flex gap-2 flex-wrap">
                   {project.tech.map((tech) => (
                     <span
@@ -59,6 +57,6 @@ export function ProjectsSection() {
           </Button>
         ))}
       </div>
-    </section>
+    </CollapsibleSection>
   );
-} 
+}

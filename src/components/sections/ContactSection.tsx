@@ -7,6 +7,7 @@ import { contactContent } from "@/data/contact";
 import { socialLinks } from "@/data/social";
 import { logEvent, EventCategories, EventActions } from "@/lib/analytics";
 import { Mail, Phone, MapPin, Clock, Send, Linkedin } from "lucide-react";
+import { CollapsibleSection } from "@/components/ui/collapsible-section";
 
 export function ContactSection() {
   const handleFormSubmit = (e: React.FormEvent) => {
@@ -20,17 +21,12 @@ export function ContactSection() {
   };
 
   return (
-    <section id="contact" className="scroll-mt-16 py-16 md:py-24">
+    <CollapsibleSection
+      id="contact"
+      heading={contactContent.title}
+      description={contactContent.description}
+    >
       <div className="container mx-auto px-4">
-        <div className="text-center mb-12">
-          <h2 className="text-3xl md:text-4xl font-bold mb-4">
-            {contactContent.title}
-          </h2>
-          <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
-            {contactContent.description}
-          </p>
-        </div>
-
         <div className="grid md:grid-cols-2 gap-8 max-w-4xl mx-auto">
           {/* Contact Information */}
           <Card className="hover:shadow-lg transition-all duration-300">
@@ -166,6 +162,6 @@ export function ContactSection() {
           </Card>
         </div>
       </div>
-    </section>
+    </CollapsibleSection>
   );
 }

@@ -1,6 +1,7 @@
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { FileText, Download, Eye, ExternalLink } from "lucide-react";
+import { CollapsibleSection } from "@/components/ui/collapsible-section";
 
 export function ResumeSection() {
   const handleDownloadResume = () => {
@@ -20,16 +21,18 @@ export function ResumeSection() {
   };
 
   return (
-    <section id="resume" className="py-16 md:py-24 bg-muted/30">
+    <CollapsibleSection
+      id="resume"
+      heading="Resume"
+      description={
+        <>
+          Download or view my latest resume with comprehensive details about my
+          experience and skills
+        </>
+      }
+      className="bg-muted/30"
+    >
       <div className="container mx-auto px-4">
-        <div className="text-center mb-12">
-          <h2 className="text-3xl md:text-4xl font-bold mb-4">Resume</h2>
-          <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
-            Download or view my latest resume with comprehensive details about
-            my experience and skills
-          </p>
-        </div>
-
         <div className="max-w-2xl mx-auto">
           <Card className="border-2 border-dashed border-primary/30 hover:border-primary/50 transition-colors">
             <CardHeader className="text-center pb-4">
@@ -126,6 +129,6 @@ export function ResumeSection() {
           </Card>
         </div>
       </div>
-    </section>
+    </CollapsibleSection>
   );
 }

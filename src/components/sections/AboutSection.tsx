@@ -5,19 +5,21 @@ import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { skills, technicalSkills, competitiveProgramming } from "@/data/skills";
 import { aboutContent } from "@/data/about";
 import { Code, Trophy, ExternalLink } from "lucide-react";
+import { CollapsibleSection } from "@/components/ui/collapsible-section";
 
 export function AboutSection() {
   return (
-    <section id="about" className="scroll-mt-16 py-16 md:py-24">
+    <CollapsibleSection
+      id="about"
+      heading="About Me"
+      description={
+        <>
+          Passionate developer with a strong foundation in computer science and
+          hands-on experience in modern technologies
+        </>
+      }
+    >
       <div className="container mx-auto px-4">
-        <div className="text-center mb-12">
-          <h2 className="text-3xl md:text-4xl font-bold mb-4">About Me</h2>
-          <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
-            Passionate developer with a strong foundation in computer science
-            and hands-on experience in modern technologies
-          </p>
-        </div>
-
         <div className="grid lg:grid-cols-2 gap-8 mb-12">
           <Card className="hover:shadow-lg transition-shadow">
             <CardHeader>
@@ -137,6 +139,6 @@ export function AboutSection() {
           </CardContent>
         </Card> */}
       </div>
-    </section>
+    </CollapsibleSection>
   );
 }

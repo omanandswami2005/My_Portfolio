@@ -6,6 +6,7 @@ import {
   extraCurricularActivities,
 } from "@/data/activities";
 import { Trophy, Users, Heart, Zap } from "lucide-react";
+import { CollapsibleSection } from "@/components/ui/collapsible-section";
 
 export function ActivitiesSection() {
   const getLevelColor = (level: string) => {
@@ -62,18 +63,12 @@ export function ActivitiesSection() {
   };
 
   return (
-    <section id="activities" className="py-16 md:py-24">
+    <CollapsibleSection
+      id="activities"
+      heading={<>Leadership & Extracurricular Activities</>}
+      description="Beyond academics - competitions, leadership roles, and community involvement"
+    >
       <div className="container mx-auto px-4">
-        <div className="text-center mb-12">
-          <h2 className="text-3xl md:text-4xl font-bold mb-4">
-            Leadership & Extracurricular Activities
-          </h2>
-          <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
-            Beyond academics - competitions, leadership roles, and community
-            involvement
-          </p>
-        </div>
-
         <Tabs defaultValue="co-curricular" className="w-full">
           <TabsList className="grid w-full grid-cols-2 mb-8">
             <TabsTrigger
@@ -178,6 +173,6 @@ export function ActivitiesSection() {
           </TabsContent>
         </Tabs>
       </div>
-    </section>
+    </CollapsibleSection>
   );
 }

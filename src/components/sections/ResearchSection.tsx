@@ -3,6 +3,7 @@ import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { researchPapers, researchStats } from "@/data/research";
 import { FileText, ExternalLink, Users, Calendar, Award } from "lucide-react";
+import { CollapsibleSection } from "@/components/ui/collapsible-section";
 
 export function ResearchSection() {
   const getTypeColor = (type: string) => {
@@ -19,18 +20,18 @@ export function ResearchSection() {
   };
 
   return (
-    <section id="research" className="py-16 md:py-24 bg-muted/30">
+    <CollapsibleSection
+      id="research"
+      heading={<>Research Work & Publications</>}
+      description={
+        <>
+          Academic research contributions and published papers in various
+          conferences and journals
+        </>
+      }
+      className="bg-muted/30"
+    >
       <div className="container mx-auto px-4">
-        <div className="text-center mb-12">
-          <h2 className="text-3xl md:text-4xl font-bold mb-4">
-            Research Work & Publications
-          </h2>
-          <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
-            Academic research contributions and published papers in various
-            conferences and journals
-          </p>
-        </div>
-
         {/* Research Statistics */}
         <div className="grid grid-cols-2 md:grid-cols-4 gap-4 mb-12">
           <Card className="text-center">
@@ -151,6 +152,6 @@ export function ResearchSection() {
           </Card>
         )}
       </div>
-    </section>
+    </CollapsibleSection>
   );
 }

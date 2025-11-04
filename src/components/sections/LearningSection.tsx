@@ -23,6 +23,7 @@ import {
   Lightbulb,
 } from "lucide-react";
 import { format } from "date-fns";
+import { CollapsibleSection } from "@/components/ui/collapsible-section";
 
 const categoryIcons = {
   technical: Code,
@@ -66,18 +67,17 @@ export function LearningSection() {
   };
 
   return (
-    <section id="learning" className="py-16 md:py-24">
+    <CollapsibleSection
+      id="learning"
+      heading={<>Personal Learning & Reflections</>}
+      description={
+        <>
+          A running log of my learning journey, documenting new skills,
+          projects, and insights gained along the way.
+        </>
+      }
+    >
       <div className="container mx-auto px-4">
-        <div className="text-center mb-12">
-          <h2 className="text-3xl md:text-4xl font-bold mb-4">
-            Personal Learning & Reflections
-          </h2>
-          <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
-            A running log of my learning journey, documenting new skills,
-            projects, and insights gained along the way.
-          </p>
-        </div>
-
         <Tabs
           value={selectedCategory}
           onValueChange={setSelectedCategory}
@@ -183,6 +183,6 @@ export function LearningSection() {
           ))}
         </Tabs>
       </div>
-    </section>
+    </CollapsibleSection>
   );
 }

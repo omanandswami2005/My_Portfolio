@@ -5,6 +5,7 @@ import { academicRecords, semesterGrades } from "@/data/academics";
 import { languages } from "@/data/languages";
 import { achievements } from "@/data/achievements";
 import { GraduationCap, Globe, Award, Calendar } from "lucide-react";
+import { CollapsibleSection } from "@/components/ui/collapsible-section";
 
 export function AcademicsSection() {
   const getProgressValue = (sgpa: string) => {
@@ -42,17 +43,12 @@ export function AcademicsSection() {
   };
 
   return (
-    <section id="academics" className="py-16 md:py-24">
+    <CollapsibleSection
+      id="academics"
+      heading={<>Education & Academic Background</>}
+      description="My educational journey, achievements, and language proficiencies"
+    >
       <div className="container mx-auto px-4">
-        <div className="text-center mb-12">
-          <h2 className="text-3xl md:text-4xl font-bold mb-4">
-            Education & Academic Background
-          </h2>
-          <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
-            My educational journey, achievements, and language proficiencies
-          </p>
-        </div>
-
         <div className="grid gap-8 lg:grid-cols-2">
           {/* Academic Records */}
           <Card>
@@ -186,6 +182,6 @@ export function AcademicsSection() {
           </Card>
         </div>
       </div>
-    </section>
+    </CollapsibleSection>
   );
 }

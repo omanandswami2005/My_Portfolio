@@ -7,7 +7,7 @@ import { AcademicsSection } from "@/components/sections/AcademicsSection";
 import { ProjectsSection } from "@/components/sections/ProjectsSection";
 import { CertificationsSection } from "@/components/sections/CertificationsSection";
 import { ResearchSection } from "@/components/sections/ResearchSection";
-import { ActivitiesSection }  from "@/components/sections/ActivitiesSection"
+import { ActivitiesSection } from "@/components/sections/ActivitiesSection";
 import { InternshipsSection } from "@/components/sections/InternshipsSection";
 import { LearningSection } from "@/components/sections/LearningSection";
 import { CareerGoalsSection } from "@/components/sections/CareerGoalsSection";
@@ -16,6 +16,7 @@ import { ContactSection } from "@/components/sections/ContactSection";
 import { FloatingActionButton } from "@/components/ui/floating-action-button";
 import { ScrollToTop } from "@/components/ui/scroll-to-top";
 import { ScrollProgress } from "@/components/ui/scroll-progress";
+import { SectionNavigator } from "@/components/ui/section-navigator";
 import { ThemeProvider, useTheme } from "@/providers/theme-provider";
 import Squares from "@/components/ui/Squares";
 import { navItems } from "@/data/navigation";
@@ -149,6 +150,9 @@ function AppContent() {
 
       {/* Scroll to Top Button */}
       <ScrollToTop />
+
+      {/* Quick Section Navigator */}
+      <SectionNavigator />
     </div>
   );
 }

@@ -3,6 +3,7 @@ import { Badge } from "@/components/ui/badge";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { careerGoals, areasOfInterest } from "@/data/career-goals";
 import { Target, Clock, Lightbulb, TrendingUp } from "lucide-react";
+import { CollapsibleSection } from "@/components/ui/collapsible-section";
 
 export function CareerGoalsSection() {
   const shortTermGoals = careerGoals.filter(
@@ -11,18 +12,17 @@ export function CareerGoalsSection() {
   const longTermGoals = careerGoals.filter((goal) => goal.type === "long-term");
 
   return (
-    <section id="career-goals" className="py-16 md:py-24">
+    <CollapsibleSection
+      id="career-goals"
+      heading={<>Career Objectives & Professional Goals</>}
+      description={
+        <>
+          My professional aspirations and areas of interest for continuous
+          growth
+        </>
+      }
+    >
       <div className="container mx-auto px-4">
-        <div className="text-center mb-12">
-          <h2 className="text-3xl md:text-4xl font-bold mb-4">
-            Career Objectives & Professional Goals
-          </h2>
-          <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
-            My professional aspirations and areas of interest for continuous
-            growth
-          </p>
-        </div>
-
         <div className="grid gap-8 lg:grid-cols-2">
           {/* Career Goals */}
           <div className="space-y-6">
@@ -181,6 +181,6 @@ export function CareerGoalsSection() {
           </CardContent>
         </Card>
       </div>
-    </section>
+    </CollapsibleSection>
   );
 }

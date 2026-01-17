@@ -2,6 +2,7 @@ import { Moon, Sun, Menu, X, ChevronDown } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
 import { useEffect, useState } from "react";
+import { useNavigate, useLocation } from "react-router-dom";
 import { OptimizedImage } from "@/components/ui/optimized-image";
 import {
   DropdownMenu,
@@ -31,6 +32,8 @@ export function Navbar({
 }: NavbarProps) {
   const [isScrolling, setIsScrolling] = useState(false);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+  const navigate = useNavigate();
+  const location = useLocation();
 
   useEffect(() => {
     let lastScrollY = window.scrollY;
@@ -52,35 +55,57 @@ export function Navbar({
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
-  // Group navigation items for better organization
   const primaryNavItems = navItems.filter((item) =>
-    ["home", "about", "contact"].includes(item.id)
+    ["home", "about", "contact"].includes(item.id),
   );
 
   const academicItems = navItems.filter((item) =>
-    ["academics", "certifications", "research"].includes(item.id)
+    ["academics", "certifications", "research"].includes(item.id),
   );
 
   const experienceItems = navItems.filter((item) =>
-    ["projects", "internships", "activities"].includes(item.id)
+    ["projects", "internships", "activities"].includes(item.id),
   );
 
   const otherItems = navItems.filter((item) =>
-    ["learning", "career-goals", "resume"].includes(item.id)
+    ["learning", "career-goals", "resume"].includes(item.id),
   );
 
   const handleNavClick = (id: string) => {
     setActiveSection(id);
     setIsMobileMenuOpen(false);
-    document.getElementById(id)?.scrollIntoView({
-      behavior: "smooth",
-      block: "start",
-    });
+
+    // Check if we need to navigate to a different page
+    if (id === "projects" && location.pathname !== "/projects") {
+      navigate("/projects");
+    } else if (id === "activities" && location.pathname !== "/activities") {
+      navigate("/activities");
+    } else if (location.pathname !== "/") {
+      // If on a different page, go to home first
+      navigate("/");
+      setTimeout(() => {
+        document.getElementById(id)?.scrollIntoView({
+          behavior: "smooth",
+          block: "start",
+        });
+      }, 100);
+    } else {
+      // Same page, just scroll
+      document.getElementById(id)?.scrollIntoView({
+        behavior: "smooth",
+        block: "start",
+      });
+    }
+  };
+
+  const handleLogoClick = () => {
+    navigate("/");
+    setActiveSection("home");
+    window.scrollTo({ top: 0, behavior: "smooth" });
   };
 
   return (
     <>
-      {/* Desktop Navigation */}
       <nav
         className={cn(
           "fixed top-0 left-0 right-0 z-50 transition-all duration-300",
@@ -88,12 +113,14 @@ export function Navbar({
             ? theme === "light"
               ? "bg-white/95 backdrop-blur-xl border-b border-zinc-200/50 shadow-sm"
               : "bg-zinc-900/95 backdrop-blur-xl border-b border-zinc-800/50 shadow-sm"
-            : "bg-transparent"
+            : "bg-transparent",
         )}
       >
         <div className="container mx-auto px-4 h-16 flex items-center justify-between">
-          {/* Logo */}
-          <div className="flex items-center gap-3">
+          <div
+            className="flex items-center gap-3 cursor-pointer"
+            onClick={handleLogoClick}
+          >
             <div className="relative h-10 w-10">
               <OptimizedImage
                 src="./myavatar.jpeg"
@@ -104,12 +131,12 @@ export function Navbar({
                 className="h-10 w-10 rounded-lg shadow-lg transition-all duration-300 hover:scale-110 ring-2 ring-gray-300/60"
               />
             </div>
-            <span className="font-bold text-lg hidden sm:block">Omanand's Portfolio</span>
+            <span className="font-bold text-lg hidden sm:block">
+              Omanand's Portfolio
+            </span>
           </div>
 
-          {/* Desktop Navigation */}
           <div className="hidden lg:flex items-center space-x-1">
-            {/* Primary Navigation */}
             {primaryNavItems.map(({ id, label }) => (
               <Button
                 key={id}
@@ -119,7 +146,7 @@ export function Navbar({
                   "text-sm font-medium transition-all duration-300 relative",
                   activeSection === id
                     ? "text-primary bg-primary/10"
-                    : "text-muted-foreground hover:text-foreground hover:bg-muted/50"
+                    : "text-muted-foreground hover:text-foreground hover:bg-muted/50",
                 )}
                 onClick={() => handleNavClick(id)}
               >
@@ -127,7 +154,6 @@ export function Navbar({
               </Button>
             ))}
 
-            {/* Academic Dropdown */}
             <DropdownMenu>
               <DropdownMenuTrigger asChild>
                 <Button
@@ -137,7 +163,7 @@ export function Navbar({
                     "text-sm font-medium transition-all duration-300 flex items-center gap-1",
                     academicItems.some((item) => item.id === activeSection)
                       ? "text-primary bg-primary/10"
-                      : "text-muted-foreground hover:text-foreground hover:bg-muted/50"
+                      : "text-muted-foreground hover:text-foreground hover:bg-muted/50",
                   )}
                 >
                   Education
@@ -151,7 +177,7 @@ export function Navbar({
                     onClick={() => handleNavClick(id)}
                     className={cn(
                       "flex items-center gap-2 cursor-pointer",
-                      activeSection === id && "bg-primary/10 text-primary"
+                      activeSection === id && "bg-primary/10 text-primary",
                     )}
                   >
                     <Icon className="w-4 h-4" />
@@ -161,7 +187,6 @@ export function Navbar({
               </DropdownMenuContent>
             </DropdownMenu>
 
-            {/* Experience Dropdown */}
             <DropdownMenu>
               <DropdownMenuTrigger asChild>
                 <Button
@@ -171,10 +196,10 @@ export function Navbar({
                     "text-sm font-medium transition-all duration-300 flex items-center gap-1",
                     experienceItems.some((item) => item.id === activeSection)
                       ? "text-primary bg-primary/10"
-                      : "text-muted-foreground hover:text-foreground hover:bg-muted/50"
+                      : "text-muted-foreground hover:text-foreground hover:bg-muted/50",
                   )}
                 >
-                 Omanand's Portfolio
+                  Portfolio
                   <ChevronDown className="w-3 h-3" />
                 </Button>
               </DropdownMenuTrigger>
@@ -185,7 +210,7 @@ export function Navbar({
                     onClick={() => handleNavClick(id)}
                     className={cn(
                       "flex items-center gap-2 cursor-pointer",
-                      activeSection === id && "bg-primary/10 text-primary"
+                      activeSection === id && "bg-primary/10 text-primary",
                     )}
                   >
                     <Icon className="w-4 h-4" />
@@ -195,7 +220,6 @@ export function Navbar({
               </DropdownMenuContent>
             </DropdownMenu>
 
-            {/* Other Items */}
             {otherItems.map(({ id, label }) => (
               <Button
                 key={id}
@@ -205,7 +229,7 @@ export function Navbar({
                   "text-sm font-medium transition-all duration-300",
                   activeSection === id
                     ? "text-primary bg-primary/10"
-                    : "text-muted-foreground hover:text-foreground hover:bg-muted/50"
+                    : "text-muted-foreground hover:text-foreground hover:bg-muted/50",
                 )}
                 onClick={() => handleNavClick(id)}
               >
@@ -214,7 +238,6 @@ export function Navbar({
             ))}
           </div>
 
-          {/* Right side actions */}
           <div className="flex items-center gap-2">
             <Button
               variant="ghost"
@@ -229,7 +252,6 @@ export function Navbar({
               )}
             </Button>
 
-            {/* Mobile menu button */}
             <Button
               variant="ghost"
               size="icon"
@@ -245,18 +267,16 @@ export function Navbar({
           </div>
         </div>
 
-        {/* Mobile Navigation Menu */}
         {isMobileMenuOpen && (
           <div
             className={cn(
               "lg:hidden border-t transition-all duration-300",
               theme === "light"
                 ? "bg-white/95 backdrop-blur-xl border-zinc-200/50"
-                : "bg-zinc-900/95 backdrop-blur-xl border-zinc-800/50"
+                : "bg-zinc-900/95 backdrop-blur-xl border-zinc-800/50",
             )}
           >
             <div className="container mx-auto px-4 py-4 space-y-2 max-h-[70vh] overflow-y-auto">
-              {/* Primary Items */}
               <div className="space-y-1">
                 <h3 className="text-xs font-semibold text-muted-foreground uppercase tracking-wider px-2 py-1">
                   Main
@@ -270,7 +290,7 @@ export function Navbar({
                       "w-full justify-start gap-3",
                       activeSection === id
                         ? "text-primary bg-primary/10"
-                        : "text-muted-foreground hover:text-foreground hover:bg-muted/50"
+                        : "text-muted-foreground hover:text-foreground hover:bg-muted/50",
                     )}
                     onClick={() => handleNavClick(id)}
                   >
@@ -280,7 +300,6 @@ export function Navbar({
                 ))}
               </div>
 
-              {/* Education Items */}
               <div className="space-y-1">
                 <h3 className="text-xs font-semibold text-muted-foreground uppercase tracking-wider px-2 py-1">
                   Education
@@ -294,7 +313,7 @@ export function Navbar({
                       "w-full justify-start gap-3",
                       activeSection === id
                         ? "text-primary bg-primary/10"
-                        : "text-muted-foreground hover:text-foreground hover:bg-muted/50"
+                        : "text-muted-foreground hover:text-foreground hover:bg-muted/50",
                     )}
                     onClick={() => handleNavClick(id)}
                   >
@@ -304,7 +323,6 @@ export function Navbar({
                 ))}
               </div>
 
-              {/* Portfolio Items */}
               <div className="space-y-1">
                 <h3 className="text-xs font-semibold text-muted-foreground uppercase tracking-wider px-2 py-1">
                   Portfolio
@@ -318,7 +336,7 @@ export function Navbar({
                       "w-full justify-start gap-3",
                       activeSection === id
                         ? "text-primary bg-primary/10"
-                        : "text-muted-foreground hover:text-foreground hover:bg-muted/50"
+                        : "text-muted-foreground hover:text-foreground hover:bg-muted/50",
                     )}
                     onClick={() => handleNavClick(id)}
                   >
@@ -328,7 +346,6 @@ export function Navbar({
                 ))}
               </div>
 
-              {/* Professional Items */}
               <div className="space-y-1">
                 <h3 className="text-xs font-semibold text-muted-foreground uppercase tracking-wider px-2 py-1">
                   Professional
@@ -342,7 +359,7 @@ export function Navbar({
                       "w-full justify-start gap-3",
                       activeSection === id
                         ? "text-primary bg-primary/10"
-                        : "text-muted-foreground hover:text-foreground hover:bg-muted/50"
+                        : "text-muted-foreground hover:text-foreground hover:bg-muted/50",
                     )}
                     onClick={() => handleNavClick(id)}
                   >
@@ -356,7 +373,6 @@ export function Navbar({
         )}
       </nav>
 
-      {/* Spacer for fixed navbar */}
       <div className="h-16" />
     </>
   );

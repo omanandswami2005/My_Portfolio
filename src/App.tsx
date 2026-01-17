@@ -1,18 +1,13 @@
 import { useEffect, useState, useRef } from "react";
+import {
+  BrowserRouter as Router,
+  Routes,
+  Route,
+  useLocation,
+} from "react-router-dom";
+import { HelmetProvider } from "react-helmet-async";
 import { Navbar } from "@/components/layout/Navbar";
 import { Footer } from "@/components/layout/Footer";
-import { HeroSection } from "@/components/sections/HeroSection";
-import { AboutSection } from "@/components/sections/AboutSection";
-import { AcademicsSection } from "@/components/sections/AcademicsSection";
-import { ProjectsSection } from "@/components/sections/ProjectsSection";
-import { CertificationsSection } from "@/components/sections/CertificationsSection";
-import { ResearchSection } from "@/components/sections/ResearchSection";
-import { ActivitiesSection } from "@/components/sections/ActivitiesSection";
-import { InternshipsSection } from "@/components/sections/InternshipsSection";
-import { LearningSection } from "@/components/sections/LearningSection";
-import { CareerGoalsSection } from "@/components/sections/CareerGoalsSection";
-import { ResumeSection } from "@/components/sections/ResumeSection";
-import { ContactSection } from "@/components/sections/ContactSection";
 import { FloatingActionButton } from "@/components/ui/floating-action-button";
 import { ScrollToTop } from "@/components/ui/scroll-to-top";
 import { ScrollProgress } from "@/components/ui/scroll-progress";
@@ -21,32 +16,44 @@ import { ThemeProvider, useTheme } from "@/providers/theme-provider";
 import Squares from "@/components/ui/Squares";
 import { navItems } from "@/data/navigation";
 import ReactGA from "react-ga4";
+import { HomePage } from "@/pages/HomePage";
+import { ProjectsPage } from "@/pages/ProjectsPage";
+import { ActivitiesPage } from "@/pages/ActivitiesPage";
 
 function AppContent() {
   const { theme, setTheme } = useTheme();
   const [activeSection, setActiveSection] = useState("home");
   const mainRef = useRef<HTMLElement>(null);
+  const location = useLocation();
+  const isHomePage = location.pathname === "/";
 
   useEffect(() => {
     // Initialize Google Analytics
     const gaId = import.meta.env.VITE_GA_MEASUREMENT_ID;
     if (gaId) {
       ReactGA.initialize(gaId);
-      // Send page view event
-      ReactGA.send({ hitType: "pageview", page: window.location.pathname });
     }
+  }, []);
 
-    // Use IntersectionObserver to detect current active section
+  useEffect(() => {
+    // Send page view on route change
+    ReactGA.send({ hitType: "pageview", page: location.pathname });
+
+    // Scroll to top on route change
+    window.scrollTo(0, 0);
+  }, [location]);
+
+  useEffect(() => {
+    // Only observe sections on home page
+    if (!isHomePage) return;
+
     const sections = [
       "home",
       "about",
       "academics",
-      "certifications",
       "projects",
-      "research",
       "internships",
       "activities",
-      "learning",
       "career-goals",
       "resume",
       "contact",
@@ -56,21 +63,13 @@ function AppContent() {
         entries.forEach((entry) => {
           if (entry.isIntersecting) {
             setActiveSection(entry.target.id);
-            // Log page view event
-            ReactGA.send({
-              hitType: "pageview",
-              page: `/${entry.target.id}`,
-              title:
-                entry.target.id.charAt(0).toUpperCase() +
-                entry.target.id.slice(1),
-            });
           }
         });
       },
       {
         threshold: 0.3,
         rootMargin: "-20% 0px -20% 0px",
-      }
+      },
     );
 
     sections.forEach((section) => {
@@ -88,11 +87,10 @@ function AppContent() {
         }
       });
     };
-  }, []);
+  }, [isHomePage]);
 
   const toggleTheme = () => {
     setTheme(theme === "light" ? "dark" : "light");
-    // Log theme toggle event
     ReactGA.event({
       category: "Theme",
       action: "Toggle",
@@ -102,7 +100,6 @@ function AppContent() {
 
   return (
     <div className="min-h-screen bg-background/50 text-foreground transition-colors duration-300 relative">
-      {/* Scroll Progress Indicator */}
       <ScrollProgress />
 
       <Squares
@@ -123,45 +120,35 @@ function AppContent() {
 
       <main
         ref={mainRef}
-        className="container mx-auto px-4 pt-4 pb-8 space-y-16 md:space-y-24 relative z-10"
+        className="container mx-auto px-4 pt-4 pb-8 relative z-10"
       >
-        <div className="relative min-h-[80vh] w-full">
-          <HeroSection />
-        </div>
-        <AboutSection />
-        <AcademicsSection />
-        {/* <CertificationsSection /> */}
-        <ProjectsSection />
-        {/* <ResearchSection /> */}
-        <InternshipsSection />
-        <ActivitiesSection />
-        {/* <LearningSection /> */}
-        <CareerGoalsSection />
-        <ResumeSection />
-        <ContactSection />
+        <Routes>
+          <Route path="/" element={<HomePage />} />
+          <Route path="/projects" element={<ProjectsPage />} />
+          <Route path="/activities" element={<ActivitiesPage />} />
+        </Routes>
       </main>
 
       <div className="relative z-10">
         <Footer />
       </div>
 
-      {/* Floating Action Button */}
       <FloatingActionButton />
-
-      {/* Scroll to Top Button */}
       <ScrollToTop />
-
-      {/* Quick Section Navigator */}
-      <SectionNavigator />
+      {isHomePage && <SectionNavigator />}
     </div>
   );
 }
 
 function App() {
   return (
-    <ThemeProvider>
-      <AppContent />
-    </ThemeProvider>
+    <HelmetProvider>
+      <Router>
+        <ThemeProvider>
+          <AppContent />
+        </ThemeProvider>
+      </Router>
+    </HelmetProvider>
   );
 }
 

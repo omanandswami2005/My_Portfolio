@@ -32,5 +32,16 @@ export const internships: Internship[] = [
     description:
       "Worked on building an AI application that leverages machine learning algorithms to provide personalized recommendations.",
   },
+  {
+    id: "3",
+    organization: "MoreX Technologies",
+    duration: "1 month",
+    role: "Technical Lead & DB Designer",
+    tools: ["PostgreSQL", "Express JS", "ReactJS", "NodeJS", "Drizzle ORM", "VPS Deployment"],
+    learningOutcome: "Collaborated and Led to 8 Members Team",
+    certificate: "-",
+    description:
+      "Production-ready paint manufacturing ERP with modular feature-based architecture.",
+  },
   
 ];

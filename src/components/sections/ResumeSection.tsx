@@ -6,7 +6,7 @@ import { CollapsibleSection } from "@/components/ui/collapsible-section";
 export function ResumeSection() {
   const handleDownloadResume = () => {
     // Replace with actual resume file path
-    const resumeUrl = "/resume.pdf";
+    const resumeUrl = "/omiii_resume.pdf";
     const link = document.createElement("a");
     link.href = resumeUrl;
     link.download = "Omanand_Swami_Resume.pdf";
@@ -17,7 +17,7 @@ export function ResumeSection() {
 
   const handleViewResume = () => {
     // Replace with actual resume file path or viewer URL
-    window.open("/resume.pdf", "_blank");
+    window.open("/omiii_resume.pdf", "_blank");
   };
 
   return (
@@ -91,7 +91,7 @@ export function ResumeSection() {
                     onClick={() =>
                       window.open(
                         "https://www.linkedin.com/in/omanandswami2005",
-                        "_blank"
+                        "_blank",
                       )
                     }
                     className="flex items-center gap-2"
@@ -105,7 +105,7 @@ export function ResumeSection() {
                     onClick={() =>
                       window.open(
                         "https://github.com/omanandswami2005",
-                        "_blank"
+                        "_blank",
                       )
                     }
                     className="flex items-center gap-2"

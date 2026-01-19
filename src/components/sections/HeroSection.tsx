@@ -12,7 +12,7 @@ export function HeroSection() {
   const { theme } = useTheme();
 
   const handleDownloadResume = () => {
-    const resumeUrl = "/resume.pdf";
+    const resumeUrl = "/omiii_resume.pdf";
     const link = document.createElement("a");
     link.href = resumeUrl;
     link.download = "Omanand_Swami_Resume.pdf";

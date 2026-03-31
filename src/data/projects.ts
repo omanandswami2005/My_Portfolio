@@ -28,7 +28,7 @@ export const projects: Project[] = [
       "Terraform",
     ],
     image:
-      "https://raw.githubusercontent.com/omanandswami2005/omni-agent-hub-with-gemini-live/main/blog/image.png",
+      "omni.png",
     link: "https://gemini-live-hackathon-2026.web.app",
     githubLink:
       "https://github.com/omanandswami2005/omni-agent-hub-with-gemini-live",

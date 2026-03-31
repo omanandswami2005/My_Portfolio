@@ -17,7 +17,7 @@ export const academicRecords: AcademicRecord[] = [
     level: "B.Tech (Direct Second Year)",
     institution: "JSPM's Rajarshri Shahu College of Engineering, Pune",
     year: "2024-2027",
-    cgpa: "8.52",
+    cgpa: "8.64",
     specialization: "Computer Science and Business Systems (SPPU, Pune)",
   },
   {

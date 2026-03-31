@@ -10,13 +10,22 @@ export interface Achievement {
 
 export const achievements: Achievement[] = [
   {
-    id: "4",
-    title: "Winner - HactoberFest Hackthon 2025",
+    id: "5",
+    title: "Finalist – Gemini Live Agent Challenge 2026",
     type: "industry",
     description:
-      "Won first place in HactoberFest Hackthon 2025 for innovative project development",
+      "Built Omni, a multi-client AI agent hub powered by Google Gemini Live API + ADK. One AI brain across web, mobile, Chrome extension, desktop, and ESP32 robot. Live demo: gemini-live-hackathon-2026.web.app",
+    date: "2026",
+    organization: "Google / Devpost",
+  },
+  {
+    id: "4",
+    title: "Winner – HacktoberFest Hackathon 2025",
+    type: "industry",
+    description:
+      "Won first place and grand prize of ₹10,000 in HacktoberFest Hackathon 2025 for building LegaliTeaAI – an AI-powered legal document analysis platform",
     date: "2025",
-    organization: "Digital Ocean and Coditas, Pune",
+    organization: "DigitalOcean, Auth0 & Coditas, Pune",
   },
   {
     id: "3",
@@ -38,10 +47,10 @@ export const achievements: Achievement[] = [
   },
   {
     id: "1",
-    title: "Runner-up in Codingal Coding Competition",
+    title: "Runner-up – Codingal New Year Coding Challenge 2021",
     type: "competition",
     description:
-      "Secured second position in Codingal Coding Competition demonstrating strong programming skills",
+      "Secured second position in Codingal New Year Coding Challenge 2021, demonstrating strong programming skills",
     date: "2021",
     organization: "Codingal",
   },

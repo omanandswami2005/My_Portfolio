@@ -11,6 +11,17 @@ export interface Internship {
 
 export const internships: Internship[] = [
   {
+    id: "4",
+    organization: "DataAxle",
+    duration: "Upcoming",
+    role: "Software Development Engineer (SDE) Intern",
+    tools: ["Software Engineering", "Full-Stack Development"],
+    learningOutcome: "Starting soon — excited to contribute to real-world engineering challenges at DataAxle",
+    certificate: "-",
+    description:
+      "Upcoming SDE internship at DataAxle. Selected based on technical skills and project portfolio.",
+  },
+  {
     id: "1",
     organization: "Unified Mentor Private Limited",
     duration: "1 month",
@@ -43,5 +54,5 @@ export const internships: Internship[] = [
     description:
       "Production-ready paint manufacturing ERP with modular feature-based architecture.",
   },
-  
+
 ];

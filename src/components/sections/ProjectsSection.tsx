@@ -1,7 +1,7 @@
-import { ExternalLink } from "lucide-react";
+import { ExternalLink, Github, Globe } from "lucide-react";
 import SpotlightCard from "@/components/ui/SpotlightCard";
 import { projects } from "@/data/projects";
-import { Button } from "@/components/ui/button";
+import { Badge } from "@/components/ui/badge";
 import { logEvent, EventCategories, EventActions } from "@/lib/analytics";
 import { OptimizedImage } from "@/components/ui/optimized-image";
 import { CollapsibleSection } from "@/components/ui/collapsible-section";
@@ -16,14 +16,26 @@ export function ProjectsSection() {
     <CollapsibleSection id="projects" heading="Personal Projects">
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
         {projects.map((project) => (
-          <Button
+          <div
             key={project.title}
-            variant="ghost"
-            className="block p-0 h-auto hover:bg-transparent w-full"
+            className="block cursor-pointer w-full"
             onClick={() => handleProjectClick(project.title, project.link)}
+            role="button"
+            tabIndex={0}
+            onKeyDown={(e) =>
+              e.key === "Enter" &&
+              handleProjectClick(project.title, project.link)
+            }
           >
             <SpotlightCard className="group h-full w-full">
               <div className="aspect-video relative overflow-hidden rounded-xl mb-4 bg-gradient-to-br from-background/50 to-background/80 shadow-lg ring-1 ring-border/20 hover:ring-primary/30 transition-all duration-300">
+                {project.featured && (
+                  <div className="absolute top-2 left-2 z-20">
+                    <Badge className="bg-primary text-primary-foreground text-xs font-semibold px-2 py-0.5">
+                      ⭐ Featured
+                    </Badge>
+                  </div>
+                )}
                 <div className="absolute inset-0 bg-primary/5 opacity-0 group-hover:opacity-100 transition-opacity z-10" />
                 <OptimizedImage
                   src={project.image}
@@ -42,7 +54,7 @@ export function ProjectsSection() {
                 <p className="text-muted-foreground mb-4 text-sm md:text-base text-left">
                   {project.description}
                 </p>
-                <div className="flex gap-2 flex-wrap">
+                <div className="flex gap-2 flex-wrap mb-3">
                   {project.tech.map((tech) => (
                     <span
                       key={tech}
@@ -52,9 +64,47 @@ export function ProjectsSection() {
                     </span>
                   ))}
                 </div>
+                {(project.githubLink || project.devpostLink) && (
+                  <div
+                    className="flex gap-3 pt-2 border-t border-border/30"
+                    onClick={(e) => e.stopPropagation()}
+                  >
+                    {project.githubLink && (
+                      <a
+                        href={project.githubLink}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="text-muted-foreground hover:text-primary text-xs flex items-center gap-1 transition-colors"
+                      >
+                        <Github className="h-3.5 w-3.5" />
+                        GitHub
+                      </a>
+                    )}
+                    {project.devpostLink && (
+                      <a
+                        href={project.devpostLink}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="text-muted-foreground hover:text-primary text-xs flex items-center gap-1 transition-colors"
+                      >
+                        <ExternalLink className="h-3.5 w-3.5" />
+                        Devpost
+                      </a>
+                    )}
+                    <a
+                      href={project.link}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="text-muted-foreground hover:text-primary text-xs flex items-center gap-1 transition-colors ml-auto"
+                    >
+                      <Globe className="h-3.5 w-3.5" />
+                      Live Demo
+                    </a>
+                  </div>
+                )}
               </div>
             </SpotlightCard>
-          </Button>
+          </div>
         ))}
       </div>
     </CollapsibleSection>

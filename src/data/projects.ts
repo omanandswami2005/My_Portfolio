@@ -4,9 +4,38 @@ export interface Project {
   tech: string[];
   image: string;
   link: string;
+  githubLink?: string;
+  devpostLink?: string;
+  featured?: boolean;
 }
 
 export const projects: Project[] = [
+  {
+    title: "Omni – Multi-Client AI Agent Hub",
+    description:
+      "One AI brain across every device. Speak from web, mobile, Chrome extension, desktop, or an ESP32 tabletop robot — Omni acts everywhere simultaneously. Real-time voice streaming, live GenUI charts, 5 AI personas, MCP Plugin Store, and cross-device sync, all powered by Google Gemini Live API + ADK. Built for the Gemini Live Agent Challenge.",
+    tech: [
+      "Google Gemini Live API",
+      "Google ADK",
+      "Python (FastAPI)",
+      "React 19",
+      "Google Cloud Run",
+      "Vertex AI",
+      "Firebase",
+      "ESP32",
+      "WebSockets",
+      "MCP Plugin Store",
+      "Terraform",
+    ],
+    image:
+      "https://raw.githubusercontent.com/omanandswami2005/omni-agent-hub-with-gemini-live/main/blog/image.png",
+    link: "https://gemini-live-hackathon-2026.web.app",
+    githubLink:
+      "https://github.com/omanandswami2005/omni-agent-hub-with-gemini-live",
+    devpostLink:
+      "https://devpost.com/software/omni-speak-anywhere-act-everywhere",
+    featured: true,
+  },
   {
     title: "Path Genie",
     description: 'A modern personalized visual learning path generator',
@@ -66,7 +95,7 @@ export const projects: Project[] = [
   {
     title: 'Social Media Engagement Analysis Report',
     description: 'A comprehensive report on social media engagement metrics and insights.',
-    tech: ['LangFlow AI', 'React', 'vite','DataStax Astra DB'],
+    tech: ['LangFlow AI', 'React', 'vite', 'DataStax Astra DB'],
     image: 'Social-Media.png',
     link: 'https://teamfullstackforce.onrender.com/',
   },
@@ -80,14 +109,14 @@ export const projects: Project[] = [
   {
     title: 'VPolyServer - The Advance College Attendance Management System!',
     description: 'A comprehensive college attendance management system with advanced features.',
-    tech: ['React-js',  'Tailwind CSS', 'Node JS', 'MongoDB', 'JWT'],
+    tech: ['React-js', 'Tailwind CSS', 'Node JS', 'MongoDB', 'JWT'],
     image: '../VPolyServer.png',
     link: 'https://vpolyserver.onrender.com/'
   },
   {
     title: 'Fight Against COVID-19',
     description: 'A web page for knowing about COVID-19.',
-    tech: ['HTML','CSS'],
+    tech: ['HTML', 'CSS'],
     image: '../covid.png',
     link: 'https://fightagainstcovid19.netlify.app/',
   },

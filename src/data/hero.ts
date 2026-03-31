@@ -1,5 +1,5 @@
 export const heroContent = {
   title: "Omanand Swami",
-  subtitle: "MERN-stack Developer, Computer Engineering Student",
-  description: `Passionate Computer Science and Business Systems student with expertise in MERN stack development. Currently pursuing B.Tech at JSPM's Rajarshri Shahu College of Engineering, Pune. Focused on creating innovative digital solutions and building scalable web applications.`,
+  subtitle: "Full-Stack & AI Developer | Computer Science Student",
+  description: `Building AI-powered products that bridge hardware, software, and cloud. Currently pursuing B.Tech at JSPM's Rajarshri Shahu College of Engineering, Pune. Creator of Omni — a multi-client AI agent hub powered by Google Gemini Live API + ADK. HacktoberFest 2025 winner. Open-source contributor.`,
 };

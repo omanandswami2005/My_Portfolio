@@ -103,6 +103,38 @@ export const extraCurricularActivities: ExtraCurricularActivity[] = [
 export const hackathons: Hackathon[] = [
   {
     id: "1",
+    name: "Gemini Live Agent Challenge",
+    description:
+      "Built Omni – a multi-client AI agent hub powered by Google Gemini Live API + ADK. One AI brain across web, mobile, Chrome extension, desktop, and an ESP32 robot. Real-time GenUI, 5 AI personas, MCP Plugin Store, and cross-device sync.",
+    date: "March 2026",
+    location: "Online (Google)",
+    level: "International",
+    organizer: "Google / Devpost",
+    achievement: "Finalist",
+    tech: [
+      "Google Gemini Live API",
+      "Google ADK",
+      "Python",
+      "React 19",
+      "Google Cloud Run",
+      "Vertex AI",
+      "ESP32",
+    ],
+    link: "https://gemini-live-hackathon-2026.web.app",
+  },
+  {
+    id: "2",
+    name: "Build & Grow AI Hackathon 2.0",
+    description:
+      "Participated in the Build & Grow AI Hackathon 2.0, working on AI-powered solutions",
+    date: "2025",
+    location: "Online",
+    level: "National",
+    organizer: "Build & Grow AI",
+    tech: ["AI/ML", "React", "Node.js"],
+  },
+  {
+    id: "3",
     name: "AICTE Hackathon",
     description:
       "National level hackathon focused on innovative tech solutions",
@@ -114,7 +146,7 @@ export const hackathons: Hackathon[] = [
     tech: ["React", "Node.js", "AI/ML"],
   },
   {
-    id: "2",
+    id: "4",
     name: "Stellar Blockchain Hackathon",
     description:
       "Built StellarScholar - A Web3 Learn2Earn platform on Stellar blockchain",
@@ -126,14 +158,16 @@ export const hackathons: Hackathon[] = [
     link: "https://github.com/omanandswami2005/stallar-hackthon",
   },
   {
-    id: "3",
-    name: "Hacktoberfest",
-    description: "Contributed to open source projects and built LegaliTeaAI",
-    date: "October 2024",
-    location: "Online",
+    id: "5",
+    name: "Hacktoberfest Hackathon 2025",
+    description:
+      "Won grand prize of ₹10,000! Built LegaliTeaAI – an AI-powered legal document analysis platform that transforms complex legal language into clear, actionable insights.",
+    date: "October 2025",
+    location: "Online / Coditas, Pune",
     level: "International",
-    organizer: "DigitalOcean",
-    tech: ["TypeScript", "React", "AI/ML"],
+    organizer: "DigitalOcean, Auth0 & Coditas",
+    achievement: "Winner – ₹10,000 Grand Prize",
+    tech: ["TypeScript", "React", "DigitalOcean Gradient AI", "Google GenAI"],
     link: "https://legalitea-genai.vercel.app",
   },
 ];
